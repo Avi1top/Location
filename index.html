@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Location Tracker</title>
     <script>
-        function sendLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    let latitude = position.coords.latitude;
-                    let longitude = position.coords.longitude;
+      function sendLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function (position) {
+            let latitude = position.coords.latitude;
+            let longitude = position.coords.longitude;
 
-                    // Google Apps Script Web App URL (Replace with your actual script URL)
-                    let scriptUrl = "https://script.google.com/macros/s/AKfycbzej2tjlFhR3G0K4QDNPsCzJdDSbuW59p_yKjXg3uTvIzjnDEqfJk05eUfA1SWS1UMNtQ/exec";
+            // Google Apps Script Web App URL (Replace with your actual script URL)
+            let scriptUrl =
+              "https://script.google.com/macros/s/AKfycbzej2tjlFhR3G0K4QDNPsCzJdDSbuW59p_yKjXg3uTvIzjnDEqfJk05eUfA1SWS1UMNtQ/exec";
 
-                    // Send request automatically
-                    fetch(scriptUrl + "?lat=" + latitude + "&lng=" + longitude)
-                        .then(response => response.text())
-                        .then(data => console.log(data))
-                        .catch(error => console.error("Error:", error));
-                });
-            } else {
-                alert("Geolocation is not supported by this browser.");
-            }
+            // Send request automatically
+            fetch(scriptUrl + "?lat=" + latitude + "&lng=" + longitude)
+              .then((response) => response.text())
+              .then((data) => console.log(data))
+              .catch((error) => console.error("Error:", error));
+          });
+        } else {
+          alert("Geolocation is not supported by this browser.");
         }
+      }
 
-        // Automatically send location on page load
-        window.onload = sendLocation;
+      // Automatically send location on page load
+      window.onload = sendLocation;
     </script>
-</head>
-<body>
-    <h2>Location is being sent</h2>
-</body>
+  </head>
+  <body>
+    <h2>Location is being sent...</h2>
+  </body>
 </html>
