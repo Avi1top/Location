@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Location Tracker</title>
+    <script>
+      function sendLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function (position) {
+            let latitude = position.coords.latitude;
+            let longitude = position.coords.longitude;
+
+            // Send location to your first device via email or server
+            let locationLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+            let message = `Here is my location: ${locationLink}`;
+
+            // Example: Send location via email
+            window.location.href = `mailto:abrahemfokra@gmail.com?subject=Location&body=${message}`;
+
+            // OR: Log location in the console
+            console.log("Location: " + locationLink);
+          });
+        } else {
+          alert("Geolocation is not supported by this browser.");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h2>Click the button below to share your location</h2>
+    <button onclick="sendLocation()">Share Location</button>
+  </body>
+</html>
